@@ -13,7 +13,15 @@
         <div class="container">
             <?php /* uncomment to debug and print the session data here: */ 
             /*print_r($_SESSION)*/ ?>
-            <h2>Please sign in</h2>
+           
+            <form class="form-horizontal" action="<?php echo site_url() ?>register" method="post">
+                <p> need to register?  </p>
+                <div class="form-group">        
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="register" class="btn btn-default"  >Register</button>
+                    </div>
+                </div>
+            </form>       
             <form class="form-horizontal" action="<?php echo site_url() ?>/login/checklogin" method="post">
                 <?php 
                 if ($error != "") { ?>
@@ -25,7 +33,9 @@
                 <?php
                 }
                 ?>
-                <p> need to registe?  </p>
+
+                
+                 <h2>Please sign in</h2>
                 <p>Hint: database contains a user with login "joe@gmail.com" and password "password".</p>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="email">Email:</label>

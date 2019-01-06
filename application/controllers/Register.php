@@ -17,7 +17,7 @@ class Register extends CI_Controller {
     }
 
     // the default function: display the login form
-    // http://localhost/demos-ci/register
+    // http://localhost/Salaviz-Trachter/register
     public function index() {
         // the view checks for an "error" so we initialize
         // empty string
@@ -27,29 +27,14 @@ class Register extends CI_Controller {
         if ($this->session->userdata('error'))
             $data['error'] = $this->session->userdata('error');
         // this is the login form
-        $this->load->view("bootstrap-form", $data);
+        $this->load->view("register", $data);
         // we don't want to show the error more than once
         // so we erase it after using it
         $this->session->set_userdata('error','');
     }
-    // this is the restricted access home page of the user
-    // http://localhost/demos-ci/login/home
-    public function home()  {
-        // user is already logged?
-        if ($this->session->userdata('user_id')) {
-                // user already logged in, let's get information from the session
-                // and go to the profile page
-                $data = array('name' => $this->session->userdata('user_name'),
-                    'email' => $this->session->userdata('user_email'));
-                // load the profile page
-                $this->load->view('user_profile', $data);
-        } else
-            // otherwise bring the login page
-            // redirect causes the browser to load a new page
-            redirect('register', 'refresh');
-    }
+   
     // action of the login form
-    // http://localhost/demos-ci/login/checkLogin
+    // http://localhost/Salaviz-Trachter/checkregister
     // it redirects either to the login form or to the user home page
     public function checkregister() {
         $this->load->model('User_model');
@@ -67,21 +52,21 @@ class Register extends CI_Controller {
                 redirect('login', 'refresh');
                 // you could also 
                 // $this->load->view('user_profile', $data);
-                // but then the URL http://localhost/demos-ci/login/checkLogin should deal with
+                // but then the URL http://localhost/Salaviz-Trachter/login/checkLogin should deal with
                 // multiple situations (logged in or not)
                 // it is better to have separate functions that deal with very different views
                 // this function acts like a router: it will redirect the user towarsd the user
                 // home page or towards the login form (in the else) 
             } else {
                 // failed register, put an error message in the session
-                $this->session->set_userdata('error', 'Wrong credentials, try again.');
-                // jump to login page to display the login form 
+                $this->session->set_userdata('error', 'email already register... try again.');
+                // jump to regist page to display the regist form 
                 redirect('register', 'refresh');
             }
         } catch (Exception $exc) {  
             // model validation failed
             $this->session->set_userdata('error', 'Please enter an email and password');
-            redirect('login', 'refresh');
+            redirect('register', 'refresh');
         }
     }
 
